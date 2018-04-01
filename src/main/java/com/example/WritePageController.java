@@ -12,6 +12,6 @@ public class WritePageController extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("writePage").forward(req, resp);
+        req.getRequestDispatcher(PageUtil.getPage("writePage")).forward(req, resp);
     }
 }

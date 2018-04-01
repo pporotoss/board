@@ -8,26 +8,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ListController", value = "/list")
-public class ListController extends HttpServlet {
+@WebServlet(name = "DetailController", value = "/detail")
+public class DetailController extends HttpServlet {
     
     private BoardService boardService = BoardService.getInstance();
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-        req.setAttribute("list", boardService.getContents());
+        String boardId = req.getParameter("boardId");
+    
+        System.out.println(boardService.getContent(Long.valueOf(boardId)));
         
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher(PageUtil.getPage("list"));
+        req.setAttribute("content", boardService.getContent(Long.valueOf(boardId)));
+        
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher(PageUtil.getPage("detail"));
         
         requestDispatcher.forward(req, resp);
     }
     
-    @Override
-    public void destroy() {
-        System.out.println("종료 시작!!!");
-        boardService.save();
-        super.destroy();
-        System.out.println("종료 끝!!!");
-    }
 }
